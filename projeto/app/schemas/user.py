@@ -29,6 +29,14 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True  # Permite conversão de ORM para JSON
 
+class UserLoginResponse(BaseModel):
+    email: EmailStr
+    encrypted_password: str
+
+    class Config:
+        from_attributes = True  # Permite conversão de ORM para JSON
+
+
 
 class UserCreateRequest(BaseModel):
     name: str
@@ -44,14 +52,6 @@ class UserCreateRequest(BaseModel):
 class UserUpdateRequest(BaseModel):
     username: str
     email: EmailStr
-
-    class Config:
-        from_attributes = True  # Permite conversão de ORM para JSON
-
-
-class UserLoginRequest(BaseModel):
-    email: EmailStr
-    password: str
 
     class Config:
         from_attributes = True  # Permite conversão de ORM para JSON
