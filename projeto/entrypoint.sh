@@ -22,7 +22,7 @@ source "$VENV_DIR/bin/activate"
 pip install --upgrade pip
 
 # Instala os pacotes apropriados com base na variável DEBUG
-if [ "$DEBUG" = "True" ]; then
+if [ "$ENVIRONMENT" = "dev" ]; then
     pip install -r /home/requirements-dev.txt
 else
     pip install -r /home/requirements.txt
