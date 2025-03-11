@@ -1,0 +1,30 @@
+services:
+  fastapi:
+    image: python:3.12.9
+    stdin_open: true
+    tty: true
+    container_name: fastapi
+    restart: always
+    env_file:
+      - ./projeto/.env
+    entrypoint: ["/home/entrypoint.sh"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./projeto:/home
+
+  db:
+    stdin_open: true
+    tty: true
+    image: postgres:17
+    container_name: fastapi-db
+    environment:
+      - POSTGRES_USER=fastapi
+      - POSTGRES_PASSWORD=fastapi
+      - POSTGRES_DB=fastapi
+    volumes:
+      - fastapi-pgdata:/var/lib/postgresql/data
+
+volumes:
+  fastapi-pgdata:
+    driver: local
