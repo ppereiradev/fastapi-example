@@ -1,6 +1,5 @@
 import uuid as _uuid
 from fastapi import FastAPI, APIRouter
-from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.init_db import init_db
 from app.api.v1.routers import user, auth
 

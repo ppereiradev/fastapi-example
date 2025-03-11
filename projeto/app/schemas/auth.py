@@ -6,3 +6,9 @@ class LoginRequest(BaseModel):
 
     class Config:
         from_attributes = True  # Permite conversão de ORM para JSON
+
+class LoginResponse(BaseModel):
+    access_token: str
+
+    class Config:
+        from_attributes = True  # Permite conversão de ORM para JSON

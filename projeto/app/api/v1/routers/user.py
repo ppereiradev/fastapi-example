@@ -11,9 +11,10 @@ from app.services.user import (
 )  # Importação do serviço
 from app.schemas.user import UserResponse, UserCreateRequest, UserUpdateRequest
 from app.core.security import create_access_token, decode_access_token
+from app.dependencies.security import validate_access_token
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(validate_access_token)])
 
 @router.get("/")
 async def read_users(db: AsyncSession = Depends(get_db)) -> list[UserResponse]:

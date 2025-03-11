@@ -30,7 +30,7 @@ def create_access_token(data: dict) -> str:
     )
     return encoded_jwt
 
-def decode_access_token(token: str) -> dict | None:
+def decode_access_token(token: str) -> dict:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
 

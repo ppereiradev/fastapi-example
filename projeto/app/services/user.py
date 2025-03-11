@@ -1,6 +1,7 @@
 import uuid as _uuid
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.future import select
 from sqlalchemy.orm import joinedload
 from sqlalchemy.exc import IntegrityError
@@ -9,8 +10,6 @@ from app.models.person import Person
 from app.schemas.user import UserResponse, UserLoginResponse, UserCreateRequest, UserUpdateRequest
 from app.core.security import get_hash_password
 from app.services.person import add_person
-
-# Serviço para usuários
 
 
 async def get_users(db: AsyncSession) -> list[UserResponse]:
