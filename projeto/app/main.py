@@ -11,6 +11,7 @@ from app.services.user import (
     delete_user,
 )  # Importação do serviço
 from app.schemas.user import UserResponse, UserCreateRequest, UserUpdateRequest
+from app.core.security import create_access_token, decode_access_token
 
 app = FastAPI()
 
@@ -22,7 +23,9 @@ async def startup():
 
 @app.get("/")
 async def root():
-    return {"message": "Hello, FastAPI!"}
+    token = create_access_token({"sub": "user@example.com"})
+
+    return {"token": token, "decoded:": decode_access_token(token)}
 
 
 @app.get("/users/")
