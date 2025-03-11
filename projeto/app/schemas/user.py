@@ -3,6 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 from app.models.user import User
+from app.core.enums import Role
 
 
 class UserResponse(BaseModel):
@@ -31,6 +32,7 @@ class UserResponse(BaseModel):
 
 class UserLoginResponse(BaseModel):
     email: EmailStr
+    role: str
     encrypted_password: str
 
     class Config:

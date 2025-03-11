@@ -10,13 +10,13 @@ from app.services.user import (
     delete_user,
 )  # Importação do serviço
 from app.schemas.user import UserResponse, UserCreateRequest, UserUpdateRequest
-from app.core.security import create_access_token, decode_access_token
 from app.dependencies.security import validate_access_token
+from app.dependencies.required_roles import require_roles
 
 
-router = APIRouter(dependencies=[Depends(validate_access_token)])
+router = APIRouter()
 
-@router.get("/")
+@router.get("/", dependencies=[Depends(require_roles(["ADMIN", "USER"]))])
 async def read_users(db: AsyncSession = Depends(get_db)) -> list[UserResponse]:
     return await get_users(db)  # Chama o serviço para obter os usuários
 
