@@ -30,6 +30,7 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True  # Permite conversão de ORM para JSON
 
+
 class UserLoginResponse(BaseModel):
     email: EmailStr
     role: str
@@ -37,7 +38,6 @@ class UserLoginResponse(BaseModel):
 
     class Config:
         from_attributes = True  # Permite conversão de ORM para JSON
-
 
 
 class UserCreateRequest(BaseModel):

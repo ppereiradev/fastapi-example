@@ -5,6 +5,7 @@ from app.api.v1.routers import user, auth
 
 app = FastAPI()
 
+
 @app.on_event("startup")
 async def startup():
     await init_db()  # Criar tabelas no banco ao iniciar o app

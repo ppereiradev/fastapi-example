@@ -7,7 +7,12 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.exc import IntegrityError
 from app.models.user import User
 from app.models.person import Person
-from app.schemas.user import UserResponse, UserLoginResponse, UserCreateRequest, UserUpdateRequest
+from app.schemas.user import (
+    UserResponse,
+    UserLoginResponse,
+    UserCreateRequest,
+    UserUpdateRequest,
+)
 from app.core.security import get_hash_password
 from app.services.person import add_person
 
@@ -37,6 +42,7 @@ async def get_user_by_uuid(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
     return UserResponse.from_orm(user)
+
 
 async def get_user_by_email_login(
     user_email: str, db: AsyncSession

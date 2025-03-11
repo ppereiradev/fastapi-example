@@ -16,6 +16,7 @@ from app.dependencies.required_roles import require_roles
 
 router = APIRouter()
 
+
 @router.get("/", dependencies=[Depends(require_roles(["ADMIN", "USER"]))])
 async def read_users(db: AsyncSession = Depends(get_db)) -> list[UserResponse]:
     return await get_users(db)  # Chama o serviço para obter os usuários

@@ -7,10 +7,12 @@ from jose import JWTError
 # Esquema OAuth2 para obter o token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth")
 
+
 async def validate_access_token(token: str = Depends(oauth2_scheme)):
     try:
         payload = decode_access_token(token)
         return payload
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
-
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
+        )
