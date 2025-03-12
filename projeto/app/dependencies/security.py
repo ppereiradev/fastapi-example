@@ -5,8 +5,7 @@ from jose import JWTError
 
 
 # Esquema OAuth2 para obter o token
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth")
-
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/swagger")
 
 async def validate_access_token(token: str = Depends(oauth2_scheme)):
     try:

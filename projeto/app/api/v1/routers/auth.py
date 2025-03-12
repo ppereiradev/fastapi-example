@@ -7,6 +7,9 @@ from app.schemas.auth import LoginRequest, LoginResponse
 from app.services.auth import get_token
 from app.core.config import settings
 
+# Importação do formulário de autenticação do FastAPI no Swagger
+from fastapi.security import OAuth2PasswordRequestForm
+
 
 router = APIRouter()
 
@@ -18,6 +21,13 @@ async def authenticate(
     token = await get_token(user, db)
     return LoginResponse(access_token=token)
 
+@router.post("/swagger")
+async def get_token_swagger(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
+    email = form_data.username
+    password = form_data.password
+    user = LoginRequest(email=email, password=password)
+    token = await get_token(user, db)
+    return {"access_token": token}
 
 @router.get("/github")
 async def login_github():
