@@ -21,13 +21,17 @@ async def authenticate(
     token = await get_token(user, db)
     return LoginResponse(access_token=token)
 
+
 @router.post("/swagger")
-async def get_token_swagger(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
+async def get_token_swagger(
+    form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)
+):
     email = form_data.username
     password = form_data.password
     user = LoginRequest(email=email, password=password)
     token = await get_token(user, db)
     return {"access_token": token}
+
 
 @router.get("/github")
 async def login_github():
@@ -35,6 +39,7 @@ async def login_github():
     return {
         "url": f"{settings.GITHUB_OAUTH_URL}?client_id={settings.GITHUB_CLIENT_ID}&scope=user"
     }
+
 
 @router.get("/github/callback")
 async def auth_callback(code: str, db: AsyncSession = Depends(get_db)) -> LoginResponse:

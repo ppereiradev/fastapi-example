@@ -1,15 +1,18 @@
 import uuid as _uuid
 from fastapi import FastAPI, APIRouter
-from app.db.init_db import init_db
 from app.api.v1.routers import user, auth
+from contextlib import asynccontextmanager
+from app.db.session import init_db, close_db
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()  # Cria as tabelas
+    yield  # Deixa a aplicação rodar
+    await close_db()  # Fecha conexões do banco ao encerrar
 
-@app.on_event("startup")
-async def startup():
-    await init_db()  # Criar tabelas no banco ao iniciar o app
 
+app = FastAPI(lifespan=lifespan)
 
 # Crie o APIRouter com o prefixo '/api/v1'
 api_v1_router = APIRouter()
@@ -20,5 +23,3 @@ api_v1_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 
 # Inclua o router global na aplicação
 app.include_router(api_v1_router, prefix="/api/v1")
-
-

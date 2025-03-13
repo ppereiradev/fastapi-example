@@ -15,6 +15,5 @@ class Settings(BaseSettings):
     GITHUB_API_URL: str = os.getenv("GITHUB_API_URL")
 
 
-
 # Criamos uma instância única de Settings para ser importada
 settings = Settings()
